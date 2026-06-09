@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GuildOS — บทพูด Pitch Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f8f9fc;
+  --surface: #ffffff;
+  --border: #e4e8f0;
+  --text: #1a1f36;
+  --muted: #6b7899;
+  --dim: #a8b3cc;
+  --blue: #3b6ff5;
+  --blue-lt: #eef2fe;
+  --violet: #7c3aed;
+  --violet-lt: #f5f3ff;
+  --teal: #0d9488;
+  --teal-lt: #f0fdfa;
+  --amber: #d97706;
+  --amber-lt: #fffbeb;
+  --green: #16a34a;
+  --green-lt: #f0fdf4;
+  --red: #dc2626;
+  --red-lt: #fef2f2;
+  --slide-accent: #3b6ff5;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Noto Sans Thai', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+}
+
+/* ── LAYOUT ── */
+.shell { display: flex; min-height: 100vh; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+  width: 260px; flex-shrink: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: sticky; top: 0; height: 100vh;
+  overflow-y: auto; padding: 1.5rem 0;
+}
+.sidebar-brand {
+  display: flex; align-items: center; gap: 8px;
+  padding: 0 1.25rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+.brand-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: linear-gradient(135deg,#3b6ff5,#7c3aed);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px;
+}
+.brand-name { font-size: 14px; font-weight: 800; }
+.brand-sub  { font-size: 11px; color: var(--muted); }
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: .6rem 1.25rem; font-size: 13px;
+  color: var(--muted); cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all .15s; text-decoration: none;
+}
+.nav-item:hover { color: var(--text); background: var(--bg); }
+.nav-item.active { color: var(--blue); border-left-color: var(--blue); background: var(--blue-lt); font-weight: 600; }
+.nav-num { font-size: 10px; font-weight: 700; width: 20px; height: 20px; border-radius: 6px; background: var(--bg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.nav-item.active .nav-num { background: var(--blue); color: #fff; }
+.sidebar-footer { padding: 1rem 1.25rem; margin-top: 1rem; border-top: 1px solid var(--border); font-size: 11px; color: var(--dim); }
+
+/* ── MAIN ── */
+.main { flex: 1; overflow-y: auto; }
+
+/* ── TOP BAR ── */
+.topbar {
+  background: var(--surface); border-bottom: 1px solid var(--border);
+  padding: .875rem 2rem; position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.topbar-title { font-size: 15px; font-weight: 700; }
+.topbar-meta  { font-size: 12px; color: var(--muted); }
+.print-btn {
+  padding: 7px 16px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--surface); font-family: inherit; font-size: 12px;
+  color: var(--muted); cursor: pointer; transition: all .15s;
+}
+.print-btn:hover { border-color: var(--blue); color: var(--blue); }
+
+/* ── CONTENT ── */
+.content { padding: 2rem; max-width: 900px; }
+
+/* ── SLIDE CARD ── */
+.slide-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 16px; margin-bottom: 2rem; overflow: hidden;
+}
+.slide-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 1.25rem 1.75rem;
+  border-bottom: 1px solid var(--border);
+  border-left: 5px solid var(--slide-accent);
+}
+.slide-num-badge {
+  width: 36px; height: 36px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 800; flex-shrink: 0;
+  background: var(--blue-lt); color: var(--blue);
+}
+.slide-title { font-size: 16px; font-weight: 800; }
+.slide-subtitle { font-size: 12px; color: var(--muted); margin-top: 1px; }
+.slide-tag-row { margin-left: auto; display: flex; gap: 6px; flex-wrap: wrap; }
+
+.slide-body { padding: 1.75rem; }
+
+/* ── SECTION ── */
+.section { margin-bottom: 1.5rem; }
+.section:last-child { margin-bottom: 0; }
+.section-label {
+  font-size: 10px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 1px; margin-bottom: .6rem;
+  display: flex; align-items: center; gap: 6px;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ── SCRIPT BOX ── */
+.script-box {
+  background: var(--bg); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.25rem 1.5rem;
+  font-size: 15px; line-height: 1.9;
+  position: relative;
+}
+.script-box .quote-mark {
+  position: absolute; top: -10px; left: 16px;
+  font-size: 36px; line-height: 1; color: var(--blue);
+  font-family: serif; opacity: .3;
+}
+.script-box p { margin-bottom: .75rem; }
+.script-box p:last-child { margin-bottom: 0; }
+em { color: var(--blue); font-style: normal; font-weight: 600; }
+.pause { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; background: var(--amber-lt); color: var(--amber); border: 1px solid #fde68a; padding: 1px 8px; border-radius: 20px; font-weight: 700; vertical-align: middle; margin: 0 4px; }
+.emphasis { background: var(--violet-lt); color: var(--violet); padding: 1px 6px; border-radius: 4px; font-weight: 700; }
+
+/* ── TIP BOX ── */
+.tip-box {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 12px 14px; border-radius: 10px; margin-top: 10px;
+  font-size: 13px;
+}
+.tip-box.blue   { background: var(--blue-lt);   border: 1px solid #bfdbfe; }
+.tip-box.green  { background: var(--green-lt);  border: 1px solid #bbf7d0; }
+.tip-box.amber  { background: var(--amber-lt);  border: 1px solid #fde68a; }
+.tip-box.violet { background: var(--violet-lt); border: 1px solid #ddd6fe; }
+.tip-box.red    { background: var(--red-lt);    border: 1px solid #fecaca; }
+.tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+.tip-text strong { font-weight: 700; display: block; margin-bottom: 2px; }
+.tip-text span   { color: var(--muted); }
+
+/* ── KEY LINE ── */
+.key-line {
+  border-left: 3px solid var(--blue);
+  padding: .5rem 1rem; margin: .75rem 0;
+  background: var(--blue-lt); border-radius: 0 8px 8px 0;
+  font-size: 14px; font-weight: 700; color: var(--blue);
+}
+
+/* ── TIMING ── */
+.timing-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: .5rem .75rem; background: var(--bg);
+  border: 1px solid var(--border); border-radius: 8px;
+  font-size: 12px; margin-bottom: 6px;
+}
+.timing-label { color: var(--muted); flex: 1; }
+.timing-val { font-weight: 700; color: var(--text); }
+
+/* ── OVERVIEW TABLE ── */
+.overview-table { width: 100%; border-collapse: collapse; font-size: 13px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+.overview-table th { padding: 10px 14px; background: var(--bg); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); text-align: left; border-bottom: 1px solid var(--border); }
+.overview-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); }
+.overview-table tr:last-child td { border-bottom: none; }
+.overview-table tr:hover td { background: #f9fafb; }
+
+/* ── PRINT ── */
+@media print {
+  .sidebar, .topbar .print-btn { display: none; }
+  .main { overflow: visible; }
+  .slide-card { break-inside: avoid; }
+  body { background: white; }
+}
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .content { padding: 1rem; }
+  .topbar  { padding: .75rem 1rem; }
+}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-brand">
+    <div class="brand-icon">⚔️</div>
+    <div>
+      <div class="brand-name">GuildOS</div>
+      <div class="brand-sub">บทพูด Pitch Deck</div>
+    </div>
+  </div>
+
+  <a class="nav-item active" href="#overview"><span class="nav-num">0</span>ภาพรวม & เวลา</a>
+  <a class="nav-item" href="#s1"><span class="nav-num">1</span>Cover — เปิดตัว</a>
+  <a class="nav-item" href="#s2"><span class="nav-num">2</span>Problem — ปัญหา</a>
+  <a class="nav-item" href="#s3"><span class="nav-num">3</span>Solution — ทางออก</a>
+  <a class="nav-item" href="#s4"><span class="nav-num">4</span>Market Timing</a>
+  <a class="nav-item" href="#s5"><span class="nav-num">5</span>Product — 3 AI Agents</a>
+  <a class="nav-item" href="#s6"><span class="nav-num">6</span>Business Model</a>
+  <a class="nav-item" href="#s7"><span class="nav-num">7</span>Value Proposition</a>
+  <a class="nav-item" href="#s8"><span class="nav-num">8</span>Competition</a>
+  <a class="nav-item" href="#s9"><span class="nav-num">9</span>Go-to-Market</a>
+  <a class="nav-item" href="#s10"><span class="nav-num">10</span>Tech Stack</a>
+  <a class="nav-item" href="#s11"><span class="nav-num">11</span>CTA — ปิดการพิชชิ่ง</a>
+
+  <div class="sidebar-footer">⏱ เวลารวม ~15 นาที<br>แบบสั้น ~8 นาที</div>
+</nav>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div>
+      <div class="topbar-title">บทพูดสำหรับ GuildOS Pitch Deck</div>
+      <div class="topbar-meta">11 สไลด์ · สำหรับ Admin กลุ่มเกม Facebook · พ.ค. 2025</div>
+    </div>
+    <button class="print-btn" onclick="window.print()">🖨 พิมพ์ PDF</button>
+  </div>
+
+  <div class="content">
+
+    <!-- ── OVERVIEW ── -->
+    <div class="slide-card" id="overview">
+      <div class="slide-header" style="--slide-accent:#1a1f36">
+        <div class="slide-num-badge" style="background:#f1f2f6; color:#1a1f36">📋</div>
+        <div>
+          <div class="slide-title">ภาพรวมก่อนเริ่มพิชชิ่ง</div>
+          <div class="slide-subtitle">ทำความเข้าใจ context, เป้าหมาย และ timing</div>
+        </div>
+      </div>
+      <div class="slide-body">
+
+        <div class="section">
+          <div class="section-label" style="color:#1a1f36">🎯 เป้าหมายของการพิชชิ่งครั้งนี้</div>
+          <ul style="list-style:none; display:flex; flex-direction:column; gap:8px; font-size:14px">
+            <li style="display:flex; gap:8px; padding:10px; background:var(--green-lt); border:1px solid #bbf7d0; border-radius:8px"><span>✅</span><span><strong>Primary:</strong> ให้ Admin กลุ่มเกมสมัคร Pilot Program ฟรี 3 เดือน</span></li>
+            <li style="display:flex; gap:8px; padding:10px; background:var(--blue-lt); border:1px solid #bfdbfe; border-radius:8px"><span>💬</span><span><strong>Secondary:</strong> ให้เขาตั้งคำถาม แสดงความสนใจ หรือแนะนำกลุ่มอื่น</span></li>
+            <li style="display:flex; gap:8px; padding:10px; background:var(--amber-lt); border:1px solid #fde68a; border-radius:8px"><span>🌱</span><span><strong>ขั้นต่ำ:</strong> ให้เขาจำชื่อ GuildOS และรู้สึกว่า "น่าลอง"</span></li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <div class="section-label" style="color:#1a1f36">⏱ แผนเวลา</div>
+          <table class="overview-table">
+            <thead><tr><th>สไลด์</th><th>หัวข้อ</th><th>เวลา (เต็ม)</th><th>เวลา (สั้น)</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>Cover + เปิดตัว</td><td>1 นาที</td><td>30 วิ</td></tr>
+              <tr><td>2</td><td>ปัญหา</td><td>2 นาที</td><td>1 นาที</td></tr>
+              <tr><td>3</td><td>Solution</td><td>2 นาที</td><td>1 นาที</td></tr>
+              <tr><td>4</td><td>Market Timing</td><td>1 นาที</td><td>ข้ามได้</td></tr>
+              <tr><td>5</td><td>Product (3 AI)</td><td>2 นาที</td><td>1 นาที</td></tr>
+              <tr><td>6</td><td>Business Model</td><td>1.5 นาที</td><td>1 นาที</td></tr>
+              <tr><td>7</td><td>Value Prop</td><td>1.5 นาที</td><td>ข้ามได้</td></tr>
+              <tr><td>8</td><td>Competition</td><td>1 นาที</td><td>ข้ามได้</td></tr>
+              <tr><td>9</td><td>Go-to-Market</td><td>1 นาที</td><td>ข้ามได้</td></tr>
+              <tr><td>10</td><td>Tech Stack</td><td>1 นาที</td><td>ข้ามได้</td></tr>
+              <tr><td>11</td><td>CTA + ปิด</td><td>1 นาที</td><td>1 นาที</td></tr>
+              <tr style="font-weight:700; background:#f8f9fc"><td colspan="2">รวม</td><td>~15 นาที</td><td>~5–6 นาที</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="section">
+          <div class="section-label" style="color:#1a1f36">💡 คำแนะนำก่อนเริ่ม</div>
+          <div class="tip-box amber"><div class="tip-icon">⚠️</div><div class="tip-text"><strong>ถามก่อนพูด</strong><span>เปิดด้วยการถาม Admin ว่า "กลุ่มมีสมาชิกเท่าไหร่?" "ปัญหาหลักตอนนี้คืออะไร?" — ทำให้คุณ customize บทพูดได้ทันที</span></div></div>
+          <div class="tip-box blue" style="margin-top:8px"><div class="tip-icon">👁</div><div class="tip-text"><strong>สบตา อย่าอ่าน</strong><span>ใช้บทนี้เป็น reference เท่านั้น — พูดสบายๆ เหมือนคุยกับเพื่อน ไม่ใช่อ่านสคริปต์</span></div></div>
+          <div class="tip-box green" style="margin-top:8px"><div class="tip-icon">🔑</div><div class="tip-text"><strong>ประโยคที่ต้องพูดให้ได้</strong><span>"GuildOS คือ AI ที่ช่วย Admin บริหารกลุ่มเกม — ให้กลุ่มโตได้โดยไม่ต้องเหนื่อยคนเดียว"</span></div></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SLIDE 1 ── -->
+    <div class="slide-card" id="s1">
+      <div class="slide-header" style="--slide-accent:#3b6ff5">
+        <div class="slide-num-badge">1</div>
+        <div>
+          <div class="slide-title">Cover — เปิดตัว GuildOS</div>
+          <div class="slide-subtitle">สร้างความน่าสนใจใน 30 วินาทีแรก</div>
+        </div>
+        <div class="slide-tag-row">
+          <span style="font-size:11px; background:var(--blue-lt); color:var(--blue); padding:3px 10px; border-radius:20px; font-weight:700">⏱ 1 นาที</span>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="section">
+          <div class="section-label" style="color:var(--blue)">🎤 บทพูด</div>
+          <div class="script-box">
+            <div class="quote-mark">"</div>
+            <p>สวัสดีครับ / ค่ะ ขอบคุณที่สละเวลามาฟังวันนี้นะครับ</p>
+            <p>ผมขอถามตรงๆ ก่อนเลยนะครับว่า — <em>ในฐานะ Admin กลุ่มเกม</em> ตอนนี้รู้สึกว่า "มีเวลาพอบริหารกลุ่มได้สบายๆ" ไหมครับ? <span class="pause">⏸ หยุดรอ</span></p>
+            <p>เดาว่าคำตอบส่วนใหญ่คงเป็น "ไม่พอ" ใช่ไหมครับ เพราะ Admin กลุ่มเกมในไทยส่วนใหญ่ทำทุกอย่างด้วยมือ — ลบสแปม ดูแลสมาชิก จัดกิจกรรม แทบไม่มีเวลาเป็นของตัวเอง</p>
+            <p>วันนี้ผมมาแนะนำ <em>GuildOS</em> ครับ — ถ้าอธิบายสั้นๆ คือ <emphasis>ระบบ AI ที่ช่วยให้กลุ่มเกมของคุณโตและ active ได้ โดยที่คุณไม่ต้องเหนื่อยคนเดียวอีกต่อไป</emphasis></p>
+          </div>
+        </div>
+        <div class="tip-box blue">
+          <div class="tip-icon">💡</div>
+          <div class="tip-text"><strong>เทคนิค Hook</strong><span>คำถาม "คุณมีเวลาพอไหม?" ทำให้ผู้ฟังตระหนักถึงปัญหาตัวเองก่อน — ทำให้สไลด์ Problem ถัดไป resonance ได้ทันที</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 2 ── -->
+    <div class="slide-card" id="s2">
+      <div class="slide-header" style="--slide-accent:#dc2626">
+        <div class="slide-num-badge" style="background:var(--red-lt); color:var(--red)">2</div>
+        <div>
+          <div class="slide-title">Problem — ปัญหาของ Admin กลุ่มเกม</div>
+          <div class="slide-subtitle">สร้าง empathy — ให้เขารู้สึกว่าคุณเข้าใจชีวิตเขา</div>
+        </div>
+        <div class="slide-tag-row">
+          <span style="font-size:11px; background:var(--red-lt); color:var(--red); padding:3px 10px; border-radius:20px; font-weight:700">⏱ 2 นาที</span>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="section">
+          <div class="section-label" style="color:var(--red)">🎤 บทพูด</div>
+          <div class="script-box">
+            <div class="quote-mark">"</div>
+            <p>ลองนึกภาพชีวิตประจำวันของ Admin กลุ่มเกมดูนะครับ</p>
+            <p>ตื่นมาเช้า — <em>notifications เต็มมือถือ</em> มีโพสต์ขายไอดีทะลักเข้ามา 10 กว่าอัน มีคนด่ากันในคอมเม้นต์ มีสมาชิกใหม่รอ approve <span class="pause">⏸ 2 วิ</span> แล้วก็ต้องไปทำงาน ไปเรียน กลับมาก็เจออีก</p>
+            <p>จากข้อมูลที่เราเก็บมา <em>Admin กลุ่มเกมใช้เวลาเฉลี่ย 2 ถึง 4 ชั่วโมงต่อวัน</em> กับงาน moderation อย่างเดียวเลยครับ และที่แย่กว่านั้นคือ spam พวกนี้มันดึง engagement จริงๆ ในกลุ่มออกไปถึง 30 ถึง 50 เปอร์เซ็นต์</p>
+            <p>ปัญหาที่สองคือเรื่อง <em>การหาเพื่อนเล่น</em> ครับ ทุกกลุ่มมีโพสต์ "หาทีม ROV 1 คน" หรือ "หาคนเล่น PUBG ช่วงดึก" ทุกวัน แต่ไม่มีระบบ match ที่ดี — คนก็แค่ comment แล้วก็จบ บางทีเจอทีมที่ toxic กัน แล้วก็เลิกเล่น เลิกอยู่กลุ่มไปเลย</p>
+            <p>และปัญหาสุดท้ายที่ทำให้ Admin เสียดายมากที่สุดคือ — <em>หา Sponsor ไม่ได้</em> ทั้งที่มีสมาชิกเป็นแสนคน แต่ไม่มี data ไม่มี report ไม่มีอะไรเลยที่จะเอาไปนำเสนอ brand ได้</p>
+            <div class="key-line">สรุปสั้นๆ: Admin ไทยบริหารชุมชนด้วยมือเปล่า ในยุคที่ AI ทำให้ทุกอย่างมัน automate ได้แล้ว</div>
+          </div>
+        </div>
+        <div class="tip-box amber">
+          <div class="tip-icon">🎯</div>
+          <div class="tip-text"><strong>ถ้าผู้ฟังพยักหน้าหรือหัวเราะ</strong><span>นั่นคือ signal ที่ดี — พูดต่อได้ว่า "เดาว่าเคยเจอแบบนี้เหมือนกันใช่ไหมครับ?" เพื่อสร้าง connection</span></div>
+        </div>
+        <div class="tip-box violet">
+          <div class="tip-icon">🔄</div>
+          <div class="tip-text"><strong>ปรับตาม Admin</strong><span>ถ้าเขาบอกตอนต้นว่า "ปัญหาหลักคือ spam" — เน้น pain point นั้นมากขึ้น ข้าม pain point อื่นที่เขาไม่รู้สึก</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 3 ── -->
+    <div class="slide-card" id="s3">
+      <div class="slide-header" style="--slide-accent:#3b6ff5">
+        <div class="slide-num-badge">3</div>
+        <div>
+          <div class="slide-title">Solution — แนะนำ GuildOS</div>
+          <div class="slide-subtitle">เสนอทางออก — ไม่ใช่แค่ feature แต่คือ transformation</div>
+        </div>
+        <div class="slide-tag-row">
+          <span style="font-size:11px; background:var(--blue-lt); color:var(--blue); padding:3px 10px; border-radius:20px; font-weight:700">⏱ 2 นาที</span>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="section">
+          <div class="section-label" style="color:var(--blue)">🎤 บทพูด</div>
+          <div class="script-box">
+            <div class="quote-mark">"</div>
+            <p>GuildOS คือ <em>"Community Operating System"</em> หรือพูดง่ายๆ ว่า มันคือระบบหลังบ้านที่ช่วย Admin บริหารกลุ่มเกมด้วย AI ครับ</p>
+            <p>ลองนึกภาพแบบนี้ครับ — ถ้าวันนี้ Facebook Group คือ "โกดังเปล่า" ที่คุณต้องจัดการทุกอย่างด้วยมือ <span class="pause">⏸ 1 วิ</span> GuildOS คือ "ระบบ automation" ที่ติดตั้งเข้าไปในโกดังนั้น ทำให้ทุกอย่างทำงานได้เอง</p>
+            <p>GuildOS มี AI Agent 3 ตัวทำงานตลอด 24 ชั่วโมงครับ</p>
+            <p>ตัวแรกคือ <em>Smart Matchmaker</em> — ใช้ AI วิเคราะห์ว่าใครควรเล่นกับใคร ไม่ใช่แค่ rank เดียวกัน แต่ดู play style, ช่วงเวลา, แม้กระทั่ง "เคมี" ที่เข้ากัน ลด toxic ได้ตั้งแต่ต้น</p>
+            <p>ตัวที่สองคือ <em>AI Moderator</em> — คัดกรอง spam และ toxic content แบบอัตโนมัติ ความแม่นยำ 95 เปอร์เซ็นต์ ไม่ต้องนั่งดูทีละโพสต์แล้วครับ</p>
+            <p>และตัวที่สามคือ <em>Profiling Engine</em> — วิเคราะห์พฤติกรรมสมาชิก แล้วสร้าง report ที่คุณสามารถเอาไปนำเสนอ sponsor ได้เลยทันที</p>
+            <div class="key-line">GuildOS ไม่ได้แทนที่ Facebook Group — แต่ทำให้ Facebook Group ของคุณ "ฉลาดขึ้น" ด้วย AI</div>
+          </div>
+        </div>
+        <div class="tip-box green">
+          <div class="tip-icon">🖥</div>
+          <div class="tip-text"><strong>ถ้ามี demo ให้ดู</strong><span>หลังพูดจบสไลด์นี้ เปิด demo dashboard ให้ดูสัก 30 วินาที — visual impression แรงกว่าคำพูดมาก</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 4 ── -->
+    <div class="slide-card" id="s4">
+      <div class="slide-header" style="--slide-accent:#d97706">
+        <div class="slide-num-badge" style="background:var(--amber-lt); color:var(--amber)">4</div>
+        <div>
+          <div class="slide-title">Market Timing — ทำไมต้องตอนนี้</div>
+          <div class="slide-subtitle">สร้าง urgency ด้วยข้อมูลตลาด</div>
+        </div>
+        <div class="slide-tag-row">
+          <span style="font-size:11px; background:var(--amber-lt); color:var(--amber); padding:3px 10px; border-radius:20px; font-weight:700">⏱ 1 นาที</span>
+          <span style="font-size:11px; background:#f3f4f6; color:#6b7280; padding:3px 10px; border-radius:20px; font-weight:700">ข้ามได้ถ้าเวลาน้อย</span>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="section">
+          <div class="section-label" style="color:var(--amber)">🎤 บทพูด</div>
+          <div class="script-box">
+            <div class="quote-mark">"</div>
+            <p>ก่อนไปต่อ ขอพูดถึงตลาดสักนิดนึงนะครับ เพราะตัวเลขพวกนี้อธิบายว่าทำไม GuildOS ถึงต้องเกิดในไทยก่อนที่ไหน</p>
+            <p>ประเทศไทยมีนักเล่นเกม <em>41 ล้านคน</em> และ 93 เปอร์เซ็นต์ของคนที่ใช้อินเทอร์เน็ตในไทยเล่นเกม — ติดอันดับ <em>3 ของโลก</em> ครับ ไม่ใช่ของ SEA แต่ของโลก</p>
+            <p>ที่น่าสนใจกว่านั้น คนไทยจ่ายเงินในเกมเฉลี่ยคนละ <em>393 ดอลลาร์ต่อปี</em> สูงสุดใน Southeast Asia เลยครับ แปลว่า community ที่คุณบริหารอยู่มีมูลค่าสูงมาก แต่ยังไม่มีเครื่องมือที่ช่วยดึงมูลค่านั้นออกมาได้</p>
+            <p>และที่สำคัญมาก — <span class="pause">⏸ 1 วิ</span> ตอนนี้ <em>ยังไม่มี competitor</em> ทำแบบนี้ในไทยครับ นี่คือหน้าต่างโอกาสที่เราต้องรีบใช้</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 5 ── -->
+    <div class="slide-card" id="s5">
+      <div class="slide-header" style="--slide-accent:#7c3aed">
+        <div class="slide-num-badge" style="background:var(--violet-lt); color:var(--violet)">5</div>
+        <div>
+          <div class="slide-title">Product — 3 AI Agents รายละเอียด</div>
+          <div class="slide-subtitle">อธิบาย feature ผ่าน use case จริงที่ Admin เข้าใจได้ทันที</div>
+        </div>
+        <div class="slide-tag-row">
+          <span style="font-size:11px; background:var(--violet-lt); color:var(--violet); padding:3px 10px; border-radius:20px; font-weight:700">⏱ 2 นาที</span>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="section">
+          <div class="section-label" style="color:var(--violet)">🎤 บทพูด</div>
+          <div class="script-box">
+            <div class="quote-mark">"</div>
+            <p>มาดูรายละเอียดของ AI ทั้ง 3 ตัวกันให้ชัดขึ้นนะครับ</p>
+            <p><em>Smart Matchmaker</em> — ลองนึกภาพว่าสมาชิกในกลุ่มพิมพ์ว่า "หาคนเล่น ROV support ช่วงดึก อย่า flame" GuildOS จะ match หาคนที่ตรงกับเงื่อนไขนั้นให้ทันทีเลยครับ ไม่ใช่แค่หา rank ใกล้เคียง แต่ดู play style, ช่วงเวลาที่ online, และ feedback จากเกมก่อนหน้า ผลที่ได้คือ <em>ทีมที่เข้ากันได้ดีขึ้น และโอกาส toxic ลดลงตั้งแต่ก่อนเริ่มเล่น</em></p>
+            <p><em>AI Moderator</em> — ตอนนี้ถ้ามีโพสต์ขายไอดี คุณต้องนั่งรอจนเห็น แล้วค่อยลบ GuildOS จะตรวจจับได้ก่อนที่โพสต์จะอยู่นาน และจัดการให้เลยครับ ความแม่นยำ 95 เปอร์เซ็นต์ หมายความว่า <em>Admin ไม่ต้องเหนื่อยกับงานนี้อีกต่อไป</em></p>
+            <p><em>Profiling Engine</em> — นี่คือตัวที่น่าตื่นเต้นที่สุดสำหรับ Admin ที่อยากหา sponsor ครับ ระบบจะวิเคราะห์ว่ากลุ่มของคุณมีใคร เล่นเกมอะไร ช่วงไหน ใช้จ่ายประมาณเท่าไหร่ แล้วสร้างเป็น Audience Report ที่คุณสามารถส่งให้ brand เปิดดูได้เลย <em>โดยที่ไม่ต้องรู้เรื่อง data science เลยสักนิด</em></p>
+          </div>
+        </div>
+        <div class="tip-box blue">
+          <div class="tip-icon">💬</div>
+          <div class="tip-text"><strong>ถามเพื่อ engage</strong><span>หลังอธิบาย Matchmaker จบ ถามว่า "กลุ่มพี่มีโพสต์หาทีมเยอะไหมครับ?" — ทำให้เขา visualize ว่า feature นี้ช่วยกลุ่มเขาได้จริง</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 6 ── -->
+    <div class="slide-card" id="s6">
+      <div class="slide-header" style="--slide-accent:#0d9488">
+        <div class="slide-num-badge" style="background:var(--teal-lt); color:var(--teal)">6</div>
+        <div>
+          <div class="slide-title">Business Model — ราคาและรูปแบบธุรกิจ</div>
+          <div class="slide-subtitle">ทำให้เข้าใจง่าย ไม่ซับซ้อน</div>
+        </div>
+        <div class="slide-tag-row">
+          <span style="font-size:11px; background:var(--teal-lt); color:var(--teal); padding:3px 10px; border-radius:20px; font-weight:700">⏱ 1.5 นาที</span>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="section">
+          <div class="section-label" style="color:var(--teal)">🎤 บทพูด</div>
+          <div class="script-box">
+            <div class="quote-mark">"</div>
+            <p>ถามว่าราคาเท่าไหร่ครับ? ขอตอบตรงๆ เลย</p>
+            <p>GuildOS ทำงานแบบ Subscription รายเดือนครับ ถ้ากลุ่มมีสมาชิกระหว่าง 5,000 ถึง 30,000 คน package Starter ราคา <em>490 บาทต่อเดือน</em> ถ้าโตขึ้นมาหน่อยเป็น Pro คือ <em>1,490 บาท</em> และถ้าเป็นกลุ่มใหญ่มากอย่าง 150,000 คนขึ้นไป มี Enterprise ที่คุยกันได้ครับ</p>
+            <p>นอกจาก subscription แล้ว ถ้ากลุ่มจัด event หรือ tournament โดยใช้ระบบ GuildOS เราจะแบ่ง success fee เล็กน้อย และถ้าคุณต้องการ Data Package พิเศษสำหรับนำเสนอ sponsor ก็มีแยกออกมาด้วย</p>
+            <p>แต่วันนี้ไม่ได้มาขายนะครับ <span class="pause">⏸ 1 วิ</span> เราอยากชวน Admin ที่สนใจมาเป็น <em>Pilot Partner รุ่นแรก</em> — ใช้ฟรีทั้งหมด 3 เดือน มีทีมงานช่วย setup ให้ครบ แลกกับ feedback ที่จะช่วยพัฒนาระบบให้ดีขึ้น</p>
+          </div>
+        </div>
+        <div class="tip-box red">
+          <div class="tip-icon">🚨</div>
+          <div class="tip-text"><strong>ถ้าเขาถามราคาเพิ่มเติม</strong><span>พูดว่า "ตอน pilot ไม่มีค่าใช้จ่ายเลยครับ หลังจากนั้นค่อยคุยกัน — สิ่งที่สำคัญกว่าคือ ระบบช่วยกลุ่มพี่ได้จริงไหม" แล้วพาออกจากการคุยเรื่องราคา</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 7 ── -->
+    <div class="slide-card" id="s7">
+      <div class="slide-header" style="--slide-accent:#16a34a">
+        <div class="slide-num-badge" style="background:var(--green-lt); color:var(--green)">7</div>
+        <div>
+          <div class="slide-title">Value Proposition — คุณค่าต่อทุกฝ่าย</div>
+          <div class="slide-subtitle">ให้ผู้ฟัง "เห็นตัวเอง" ในสไลด์นี้</div>
+        </div>
+        <div class="slide-tag-row">
+          <span style="font-size:11px; background:var(--green-lt); color:var(--green); padding:3px 10px; border-radius:20px; font-weight:700">⏱ 1.5 นาที</span>
+          <span style="font-size:11px; background:#f3f4f6; color:#6b7280; padding:3px 10px; border-radius:20px; font-weight:700">ข้ามได้ถ้าเวลาน้อย</span>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="section">
+          <div class="section-label" style="color:var(--green)">🎤 บทพูด</div>
+          <div class="script-box">
+            <div class="quote-mark">"</div>
+            <p>ผมอยากให้ลองนึกถึงทุกคนในระบบนะครับ ไม่ใช่แค่ตัวคุณในฐานะ Admin</p>
+            <p>สำหรับ <em>Admin เองครับ</em> — ประหยัดเวลา moderation จาก 4 ชั่วโมงต่อวันเหลือแค่ 20 นาที มีข้อมูลในมือที่พาไปหา sponsor ได้จริง และ community ที่ clean กว่าเดิม ทำให้คนอยากอยู่กับกลุ่มนานขึ้น</p>
+            <p>สำหรับ <em>สมาชิกในกลุ่ม</em> — เขาจะเจอเพื่อนเล่นที่เข้ากันได้จริงๆ ไม่ใช่แค่สุ่มมา เจอทีมที่ไม่ toxic scroll feed แล้วเจอแต่ content ที่มีค่า ไม่ใช่สแปม</p>
+            <p>และสำหรับ <em>แบรนด์หรือ sponsor</em> ที่คุณจะไปหา — เขาได้ audience insight ที่แม่นยำ รู้ว่าคนในกลุ่มคือใคร เล่นอะไร พร้อมจ่ายเท่าไหร่ ซึ่งมีค่ามากกว่า "กลุ่มมีสมาชิก 100,000 คน" โดยไม่มีข้อมูลอะไรเลย</p>
+            <div class="key-line">GuildOS ดีกับทุกคน — Admin โล่งขึ้น สมาชิกสนุกขึ้น และกลุ่มมีมูลค่ามากขึ้น</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 8 ── -->
+    <div class="slide-card" id="s8">
+      <div class="slide-header" style="--slide-accent:#6b7899">
+        <div class="slide-num-badge" style="background:#f1f2f6; color:#374151">8</div>
+        <div>
+          <div class="slide-title">Competition — เราต่างจากอะไรที่มีอยู่</div>
+          <div class="slide-subtitle">ไม่โจมตี competitor แต่แสดงความแตกต่างชัดๆ</div>
+        </div>
+        <div class="slide-tag-row">
+          <span style="font-size:11px; background:#f1f2f6; color:#6b7280; padding:3px 10px; border-radius:20px; font-weight:700">⏱ 1 นาที</span>
+          <span style="font-size:11px; background:#f3f4f6; color:#6b7280; padding:3px 10px; border-radius:20px; font-weight:700">ข้ามได้ถ้าเวลาน้อย</span>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="section">
+          <div class="section-label" style="color:#6b7899">🎤 บทพูด</div>
+          <div class="script-box">
+            <div class="quote-mark">"</div>
+            <p>บางคนอาจจะถามว่า แล้วต่างจาก Discord หรือ LINE ยังไง?</p>
+            <p>Discord ดีมากครับ แต่มันถูกออกแบบมาสำหรับตลาด English-first และมันอยู่คนละที่กับ Facebook Group ซึ่งเป็นที่ที่ community ของคุณอยู่จริงๆ</p>
+            <p>LINE Group ก็ดี แต่ไม่มี AI ไม่มี data และไม่มี monetization tool เลย</p>
+            <p>ส่วน Facebook Group เปล่าๆ นั้น — คุณก็ใช้อยู่แล้ว และรู้ดีว่ามันทำได้แค่ไหนครับ <span class="pause">⏸ 1 วิ</span></p>
+            <p><em>GuildOS ไม่ได้มาแทนที่ Facebook Group</em> แต่มันทำงานด้วยกันกับ Facebook Group ของคุณ เพิ่ม AI layer เข้าไป ทำให้มันฉลาดขึ้นโดยที่ community ของคุณไม่ต้องย้ายไปที่ไหน</p>
+          </div>
+        </div>
+        <div class="tip-box violet">
+          <div class="tip-icon">⚡</div>
+          <div class="tip-text"><strong>ถ้าเขาถามว่า "แล้วมีใครใช้แล้วไหม?"</strong><span>ตอบตรงๆ ว่า "เราอยู่ในช่วง pilot ครับ — นั่นแหละที่อยากให้พี่เป็นหนึ่งใน 20 กลุ่มแรกที่ได้ใช้ก่อนใครและฟรีด้วย"</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 9 ── -->
+    <div class="slide-card" id="s9">
+      <div class="slide-header" style="--slide-accent:#3b6ff5">
+        <div class="slide-num-badge">9</div>
+        <div>
+          <div class="slide-title">Go-to-Market — แผนเติบโต</div>
+          <div class="slide-subtitle">แสดงว่า GuildOS มีแผนชัด ไม่ใช่แค่ idea</div>
+        </div>
+        <div class="slide-tag-row">
+          <span style="font-size:11px; background:var(--blue-lt); color:var(--blue); padding:3px 10px; border-radius:20px; font-weight:700">⏱ 1 นาที</span>
+          <span style="font-size:11px; background:#f3f4f6; color:#6b7280; padding:3px 10px; border-radius:20px; font-weight:700">ข้ามได้ถ้าเวลาน้อย</span>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="section">
+          <div class="section-label" style="color:var(--blue)">🎤 บทพูด</div>
+          <div class="script-box">
+            <div class="quote-mark">"</div>
+            <p>แผนของเราชัดเจนครับ — เริ่มจาก niche แล้วขยาย</p>
+            <p>Phase แรกคือ Q3 ปีนี้ เราจะเริ่มกับกลุ่ม ROV และ MLBB ก่อน เพราะเป็นเกมที่ต้องการการ match ทีมสูง feature ของเราจะเห็นผลชัดที่สุดกับกลุ่มประเภทนี้ มีเป้า 10 กลุ่ม Pilot ใน Q3</p>
+            <p>จากนั้น Q4 ขยายไปเรื่อย FPS, Gacha, Sandbox จนครบทุก genre ในไทย แล้วปี 2026 เริ่มดูตลาด SEA ประเทศถัดไป</p>
+            <p>ตอนนี้เรากำลังมองหา <em>กลุ่มที่ใช่</em> ไม่ใช่กลุ่มที่ใหญ่ที่สุด แต่คือกลุ่มที่ Admin ใส่ใจ community จริงๆ และพร้อมลองสิ่งใหม่ <span class="pause">⏸ 1 วิ</span> ฟังดูเหมือนกลุ่มของคุณไหมครับ?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 10 ── -->
+    <div class="slide-card" id="s10">
+      <div class="slide-header" style="--slide-accent:#0d9488">
+        <div class="slide-num-badge" style="background:var(--teal-lt); color:var(--teal)">10</div>
+        <div>
+          <div class="slide-title">Tech Stack — ความน่าเชื่อถือของระบบ</div>
+          <div class="slide-subtitle">พูดให้ non-technical Admin เข้าใจว่า ระบบนี้ไว้ใจได้</div>
+        </div>
+        <div class="slide-tag-row">
+          <span style="font-size:11px; background:var(--teal-lt); color:var(--teal); padding:3px 10px; border-radius:20px; font-weight:700">⏱ 1 นาที</span>
+          <span style="font-size:11px; background:#f3f4f6; color:#6b7280; padding:3px 10px; border-radius:20px; font-weight:700">ข้ามได้ถ้าเวลาน้อย</span>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="section">
+          <div class="section-label" style="color:var(--teal)">🎤 บทพูด</div>
+          <div class="script-box">
+            <div class="quote-mark">"</div>
+            <p>ถ้าถามว่าระบบนี้สร้างด้วยอะไรและน่าเชื่อถือแค่ไหน ขอพูดแบบไม่ technical นะครับ</p>
+            <p>เราใช้ฐานข้อมูลแบบ real-time ที่บริษัทใหญ่ๆ ทั่วโลกใช้กัน และ AI core ของเราใช้ Claude จาก Anthropic — ซึ่งเป็น AI ที่มีความสามารถเข้าใจภาษาไทยได้ดีมาก รวมถึง slang ของเกมเมอร์ไทยด้วย</p>
+            <p>ส่วนที่สำคัญที่สุดสำหรับ Admin ที่กังวลเรื่องข้อมูลสมาชิก — <em>ระบบของเราออกแบบให้ comply กับ PDPA</em> ครับ ข้อมูลส่วนตัวของสมาชิกจะไม่ถูกเก็บโดยตรง ทุกอย่างทำงานในระดับ aggregate เพื่อความปลอดภัย</p>
+          </div>
+        </div>
+        <div class="tip-box amber">
+          <div class="tip-icon">🤔</div>
+          <div class="tip-text"><strong>ถ้า Admin ถามเรื่อง privacy เพิ่ม</strong><span>พูดว่า "ดีเลยครับที่ถาม — เรามี Privacy Policy ชัดเจน และ Pilot Partner ทุกคนจะเห็น detail ก่อน sign ใดๆ" อย่า improvise เรื่อง legal โดยไม่มั่นใจ</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SLIDE 11 ── -->
+    <div class="slide-card" id="s11">
+      <div class="slide-header" style="--slide-accent:#7c3aed">
+        <div class="slide-num-badge" style="background:var(--violet-lt); color:var(--violet)">11</div>
+        <div>
+          <div class="slide-title">CTA — ปิดการพิชชิ่ง</div>
+          <div class="slide-subtitle">สร้าง momentum และปิด commitment ในห้อง</div>
+        </div>
+        <div class="slide-tag-row">
+          <span style="font-size:11px; background:var(--violet-lt); color:var(--violet); padding:3px 10px; border-radius:20px; font-weight:700">⏱ 1 นาที</span>
+          <span style="font-size:11px; background:var(--red-lt); color:var(--red); padding:3px 10px; border-radius:20px; font-weight:700">สำคัญมาก</span>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="section">
+          <div class="section-label" style="color:var(--violet)">🎤 บทพูด</div>
+          <div class="script-box">
+            <div class="quote-mark">"</div>
+            <p>สุดท้ายครับ ผมไม่ได้มาขายอะไรวันนี้ — ผมมาชวนครับ</p>
+            <p>เราเปิด <em>Pilot Program สำหรับ Admin 20 กลุ่มแรกเท่านั้น</em> ใช้ฟรีทั้งหมด 3 เดือน ทีมงานช่วย setup ให้ครบตั้งแต่ต้นจนจบ และทุกสัปดาห์จะมี report ส่งให้ดูว่ากลุ่มโตขึ้นหรือ engagement เปลี่ยนไปยังไง</p>
+            <p>สิ่งที่เราขอแค่อย่างเดียวคือ <em>feedback ตรงๆ</em> ว่าระบบช่วยได้จริงไหม เพื่อที่เราจะพัฒนาให้ดีขึ้น นั่นแหละครับ คือ deal ของเรา</p>
+            <p><span class="pause">⏸ 2 วิ</span></p>
+            <p>ถ้าสนใจ ขอแค่บอกผมวันนี้ครับว่า "ลองดู" — แล้วเราจะนัดคุยรายละเอียดและเริ่ม onboarding ให้เลย ไม่มีเอกสารซับซ้อน ไม่ต้องจ่ายอะไรล่วงหน้า</p>
+            <div class="key-line">มีคำถามอะไรไหมครับ? ถามได้เลย ไม่มีคำถามไหนที่ไม่ดี</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="section-label" style="color:var(--violet)">🔄 วิธีรับมือ Q&A ที่พบบ่อย</div>
+          <div style="display:flex; flex-direction:column; gap:10px">
+
+            <div style="border:1px solid var(--border); border-radius:10px; overflow:hidden">
+              <div style="padding:10px 14px; background:var(--bg); font-size:12px; font-weight:700; color:var(--muted); border-bottom:1px solid var(--border)">❓ "ราคาหลังจาก 3 เดือนแล้วเท่าไหร่?"</div>
+              <div style="padding:10px 14px; font-size:13px;">ตอบว่า: <em>"490 ถึง 1,490 บาทต่อเดือนตาม tier ครับ แต่ถ้า pilot แล้วไม่ได้ผล เราไม่ force ให้จ่ายต่อแน่นอน — เราต้องการให้คุณเห็นว่ามันดีจริงก่อน"</em></div>
+            </div>
+
+            <div style="border:1px solid var(--border); border-radius:10px; overflow:hidden">
+              <div style="padding:10px 14px; background:var(--bg); font-size:12px; font-weight:700; color:var(--muted); border-bottom:1px solid var(--border)">❓ "มันทำงานยังไงกับ Facebook Group ของเรา?"</div>
+              <div style="padding:10px 14px; font-size:13px;">ตอบว่า: <em>"เราเชื่อมต่อผ่าน Facebook API ครับ ไม่ต้องย้ายกลุ่มไปไหน สมาชิกยังอยู่ที่เดิม แค่ Admin ได้ dashboard เพิ่มมาเพื่อบริหารจัดการ"</em></div>
+            </div>
+
+            <div style="border:1px solid var(--border); border-radius:10px; overflow:hidden">
+              <div style="padding:10px 14px; background:var(--bg); font-size:12px; font-weight:700; color:var(--muted); border-bottom:1px solid var(--border)">❓ "ต้องทำอะไรบ้างเพื่อเริ่มใช้?"</div>
+              <div style="padding:10px 14px; font-size:13px;">ตอบว่า: <em>"แทบไม่ต้องทำอะไรเลยครับ ทีมเราจะนัดนั่ง setup ด้วยกัน ใช้เวลาแค่ 30 นาที หลังจากนั้นระบบทำงานเองเลย"</em></div>
+            </div>
+
+            <div style="border:1px solid var(--border); border-radius:10px; overflow:hidden">
+              <div style="padding:10px 14px; background:var(--bg); font-size:12px; font-weight:700; color:var(--muted); border-bottom:1px solid var(--border)">❓ "ขอคิดดูก่อนได้ไหม?"</div>
+              <div style="padding:10px 14px; font-size:13px;">ตอบว่า: <em>"ได้เลยครับ ขอแค่เบอร์หรือ LINE ไว้ ผมจะส่งข้อมูลเพิ่มเติมให้ และถ้ามีคำถามอะไร ทักมาได้เลยนะครับ"</em> — แล้วขอ contact ก่อนจากกัน</div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="tip-box green">
+          <div class="tip-icon">🏆</div>
+          <div class="tip-text"><strong>ปิด session ให้ดี</strong><span>อย่าจบแบบ "โอเคครับขอบคุณ" — จบด้วย clear next step เสมอ เช่น "งั้นผมจะ add LINE แล้วส่งข้อมูล Pilot ให้นะครับ สะดวกรับ LINE ได้เลยไหม?"</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── BONUS ── -->
+    <div class="slide-card" id="bonus">
+      <div class="slide-header" style="--slide-accent:#d97706">
+        <div class="slide-num-badge" style="background:var(--amber-lt); color:var(--amber)">+</div>
+        <div>
+          <div class="slide-title">Bonus — สคริปต์แบบสั้น (5 นาที)</div>
+          <div class="slide-subtitle">ใช้เมื่อมีเวลาน้อย หรือเปิด pitch ทาง DM</div>
+        </div>
+      </div>
+      <div class="slide-body">
+        <div class="section">
+          <div class="section-label" style="color:var(--amber)">🎤 บทพูด ฉบับย่อ (ใช้ใน DM หรือพรีเซนต์แบบสั้น)</div>
+          <div class="script-box">
+            <div class="quote-mark">"</div>
+            <p>สวัสดีครับ ผมชื่อ [ชื่อ] มาจาก GuildOS ครับ</p>
+            <p>เรากำลังทำ AI ที่ช่วย Admin กลุ่มเกม Facebook บริหารชุมชนง่ายขึ้น — ลดภาระ moderation อัตโนมัติ ช่วยจับคู่ผู้เล่น และสร้าง insight report สำหรับหา sponsor</p>
+            <p>ตอนนี้เรากำลังมองหา Admin 20 กลุ่มแรกที่จะมาร่วม Pilot ฟรี 3 เดือน ทีมเราช่วย setup ให้ทั้งหมด ไม่มีค่าใช้จ่าย</p>
+            <p>กลุ่มของพี่มีสมาชิกประมาณเท่าไหร่ครับ? และตอนนี้ปัญหาหลักของกลุ่มคืออะไร?</p>
+          </div>
+          <div class="tip-box blue" style="margin-top:10px">
+            <div class="tip-icon">💡</div>
+            <div class="tip-text"><strong>จบด้วยคำถาม เสมอ</strong><span>บทพูดสั้นจบด้วยคำถาม 2 ข้อ — ทำให้เขาตอบกลับ แทนที่จะเพิกเฉย และช่วยคุณเก็บข้อมูล qualify lead ไปด้วยในตัว</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /shell -->
+
+<script>
+// Active nav on scroll
+const sections = document.querySelectorAll('[id]');
+const navItems = document.querySelectorAll('.nav-item');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) cur = s.id;
+  });
+  navItems.forEach(n => {
+    n.classList.toggle('active', n.getAttribute('href') === '#' + cur);
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
